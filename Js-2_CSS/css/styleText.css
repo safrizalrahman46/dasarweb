@@ -1,0 +1,23 @@
+.tulisan_warna {
+    color: blue;
+}
+.tulisan_warna {
+    color: blue;
+    text-align: center; /* Center the text */
+    text-decoration: underline; /* Add underline decoration */
+}
+.par1 {
+    text-decoration: underline; /* Add underline decoration */
+}
+.par1 {
+    letter-spacing: 5px; /* Add spacing between characters */
+}
+
+
+/* .link:link {
+    color: blue; 
+}
+
+.link:visited {
+    color: greenyellow; 
+} */
