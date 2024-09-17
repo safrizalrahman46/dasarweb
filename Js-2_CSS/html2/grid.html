@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+    body,
+    html {
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    font-family: Arial;
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.container {
+    margin: 0 auto;
+    border: 1px solid #333;
+    box-sizing: border-box;
+    padding: 10px;
+    display: grid;
+    grid-template-areas: 
+        "header header"
+        "aside main"
+        "nav main"
+        "footer footer";
+    grid-template-columns: 1fr 1.5fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+}
+
+header {
+    grid-area: header;
+    background-color: #BB5308;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+aside {
+    grid-area: aside;
+    background-color: #2F93FF;
+    padding: 10px;
+}
+
+nav {
+    grid-area: nav;
+    background-color: #E45765;
+    padding: 10px;
+}
+
+main {
+    grid-area: main;
+    background-color: #EBAA77;
+    box-sizing: border-box;
+    flex: 1.5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer {
+    grid-area: footer;
+    background-color: #666;
+    padding: 20px;
+}
+
+</style>
+</head>
+<body>
+    <div class="container">
+        <header>Header</header>
+        <nav>Navigation</nav>
+        <main>Main Content</main>
+        <aside>Aside</aside>
+        <footer>Footer</footer>
+    </div>
+</body>
+</html>

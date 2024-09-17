@@ -1,0 +1,34 @@
+h2 {
+    color: orange;
+    font-family: Trebuchet MS;
+    text-align: center;
+}
+
+/* body {
+    width: 100%;
+    padding: 10px;
+    margin: 0;
+    background: lightgoldenrodyellow;
+} */
+body {
+    /* width: 100%;
+    padding: 10px;
+    margin: 0; */
+    color: white;
+    /* background: lightcyan; */
+    /* background: url('../images/tifa.jpeg'); */
+
+ 
+        background: url('../images/tifa.jpeg'), url('../images/Noctis.jpg');
+        background-repeat: no-repeat, repeat;
+        color: white;
+    
+    
+}
+
+#kotak {
+    color: #fff;
+    width: 400px;
+    padding: 50px;
+    background-color: blue; 
+}
