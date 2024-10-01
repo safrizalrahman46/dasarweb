@@ -20,7 +20,7 @@ $movie = array (
     array ("The Avengers", 2012, 8.1),
     array ("Guardians of the Galaxy", 2014, 8.1),
     array ("Iron Man", 2008, 7.9)
-);
+);N
 
 echo "<tr>";
 echo "<td>". $movie [0] [0] . "</td>";
