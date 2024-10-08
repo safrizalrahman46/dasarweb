@@ -4,6 +4,7 @@
     <title>Form Input PHP</title>
 </head>
 <body>
+    <!-- ksks -->
     <h2>Form Input PHP</h2>
     <?php
     // Inisialisasi variabel
