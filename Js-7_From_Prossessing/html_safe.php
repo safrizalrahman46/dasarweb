@@ -20,11 +20,13 @@
         $input = htmlspecialchars($input, ENT_QUOTES, 'UTF-8');
         echo "Sanitized Input: " . $input . "<br>";
 
-        $email = $_POST['email'];
-        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            echo "Valid Email: " . $email . "<br>";
-        } else {
-            echo "Invalid Email Format.<br>";
+        if (isset($_POST['email'])) {
+            $email = $_POST['email'];
+            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                echo "Valid Email: " . $email . "<br>";
+            } else {
+                echo "Invalid Email Format.<br>";
+            }
         }
     }
     ?>
