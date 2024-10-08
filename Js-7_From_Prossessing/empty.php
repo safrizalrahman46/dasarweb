@@ -21,6 +21,6 @@ if (empty($nonExistentVar)) {
 } else {
     echo "Variabel terdefinisi dan tidak kosong.<br>";
 }
-
+//
 
 ?>
