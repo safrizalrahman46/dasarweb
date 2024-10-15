@@ -31,7 +31,7 @@ if (isset($_POST["submit"])) {
     $targetdir = "uploads/"; // Direksi tujuan untuk menyimpan file
     $targetfile = $targetdir . basename($_FILES["myfile"]["name"]);
     $fileType = strtolower(pathinfo($targetfile, PATHINFO_EXTENSION));
-    $allowedExtensions = array("txt", "pdf", "doc", "docx");
+    $allowedExtensions = array("txt", "pdf", "doc", "docx", "jpg");
     $maxsize = 100  * 1024 * 1024;
 
     if (in_array($fileType, $allowedExtensions) && $_FILES["myfile"]["size"] <= $maxsize) {
