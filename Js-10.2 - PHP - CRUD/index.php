@@ -11,7 +11,7 @@
     <?php
     include('koneksi.php');
 
-    $query = "SELECT * FROM anggota ORDER BY id DESC";
+    $query = "SELECT * FROM anggota ORDER BY id ASC";
     $result = mysqli_query($koneksi, $query);
 
     if (mysqli_num_rows($result) > 0) {
@@ -19,7 +19,7 @@
         echo "<table>";
         echo "<tr><th>No</th><th>Nama</th><th>Jenis Kelamin</th><th>Alamat</th><th>No. Telp</th><th>Aksi</th></tr>";
         while ($row = mysqli_fetch_array($result)) {
-            $kelamin = ($row["jenis_kelamin"] === 'Laki-laki') ? 'Laki-laki' : 'Perempuan';
+            $kelamin = ($row["jenis_kelamin"] === 'L') ? 'Laki-laki' : 'Perempuan';
             echo "<tr>
                     <td>" . $no++ . "</td>
                     <td>" . $row["nama"] . "</td>
