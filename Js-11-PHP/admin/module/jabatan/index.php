@@ -34,7 +34,7 @@
                     <tbody>
                         <?php
                         $no = 1;
-                        $query = "SELECT * FROM jabatan order by id desc";
+                        $query = "SELECT * FROM positions order by id desc";
                         $result = mysqli_query($koneksi, $query);
                         while ($row = mysqli_fetch_assoc($result)) {
                         ?>
@@ -83,5 +83,5 @@
         </main>
     </div>
 </div>
-
+<!--  -->
 

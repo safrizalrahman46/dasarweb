@@ -4,26 +4,25 @@ if (!empty($_SESSION['username'])) {
     require '../config/koneksi.php';
     require '../fungsi/pesan_kilat.php';
     require '../fungsi/anti_injection.php';
-    
-    // Use $_POST instead of $_GET for form submission
-    if (!empty($_POST['jabatan'])) {
-        // Ensure to use $_POST for input values
-        $jabatan = antiinjection($koneksi, $_POST['jabatan']);
-        $keterangan = antiinjection($koneksi, $_POST['keterangan']);
+
+    // Use $_GET to fetch the ID from the URL
+    if (!empty($_GET['id'])) {
+        // Sanitize the input ID
+        $id = antiinjection($koneksi, $_GET['id']);
         
         // Prepare the SQL statement
-        $query = "INSERT INTO positions (jabatan, keterangan) VALUES ('$jabatan', '$keterangan')";
+        $query = "DELETE FROM positions WHERE id = '$id'";
         
         // Execute the query and handle success or error
         if (mysqli_query($koneksi, $query)) {
-            pesan('success', "Jabatan Baru Ditambahkan.");
+            pesan('success', "Jabatan Telah Terhapus.");
         } else {
-            pesan('danger', "Menambahkan Jabatan Karena: " . mysqli_error($koneksi));
+            pesan('danger', "Jabatan Tidak Terhapus Karena: " . mysqli_error($koneksi));
         }
 
         // Redirect to the jabatan page
         header("Location: ../index.php?page=jabatan");
-        exit(); // It's good practice to call exit after a header redirect
+        exit(); // Stop further script execution after redirect
     }
 } else {
     // Optional: Handle cases where the session is not set (user not logged in)
