@@ -3,7 +3,7 @@ require 'admin/template/menu.php';
 $id = $_GET['id'];
 
 // Fetch the jabatan data based on the ID
-$query = "SELECT * FROM jabatan WHERE id = '$id'";
+$query = "SELECT * FROM positions WHERE id = '$id'";
 $result = mysqli_query($koneksi, $query);
 $row = mysqli_fetch_assoc($result);
 ?>
@@ -41,3 +41,4 @@ $row = mysqli_fetch_assoc($result);
         </main>
     </div>
 </div>
+<!--  -->
