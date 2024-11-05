@@ -8,7 +8,7 @@ function set_flashdata($key = "", $value = "") {
 }
 
 function get_flashdata($key = "") {
-    if (empty($key) && isset($_SESSION['_flashdata'][$key])) {
+    if (!empty($key) && isset($_SESSION['_flashdata'][$key])) {
         $data = $_SESSION['_flashdata'][$key];
         unset($_SESSION['_flashdata'][$key]);
         return $data;

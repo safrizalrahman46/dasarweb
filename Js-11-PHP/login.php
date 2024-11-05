@@ -171,7 +171,9 @@ include "fungsi/pesan_kilat.php";
             <img class="mb-4" src="assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
             <h1 class="h3 mb-3 fw-normal">Lakukan Login</h1>
             <?php if (isset($_SESSION['_flashdata'])) {
+                // echo '<pre>'; var_dump($_SESSION['_flashdata']);
                 foreach ($_SESSION['_flashdata'] as $key => $val) {
+                    // var_dump($key); die;
                     echo get_flashdata($key);
                 }
             }
