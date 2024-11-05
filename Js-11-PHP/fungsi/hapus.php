@@ -5,27 +5,43 @@ if (!empty($_SESSION['username'])) {
     require '../fungsi/pesan_kilat.php';
     require '../fungsi/anti_injection.php';
 
-    // Use $_GET to fetch the ID from the URL
-    if (!empty($_GET['id'])) {
-        // Sanitize the input ID
+    // Deleting a position (jabatan)
+    if (!empty($_GET['jabatan'])) {
         $id = antiinjection($koneksi, $_GET['id']);
         
-        // Prepare the SQL statement
         $query = "DELETE FROM positions WHERE id = '$id'";
         
-        // Execute the query and handle success or error
         if (mysqli_query($koneksi, $query)) {
             pesan('success', "Jabatan Telah Terhapus.");
         } else {
             pesan('danger', "Jabatan Tidak Terhapus Karena: " . mysqli_error($koneksi));
         }
 
-        // Redirect to the jabatan page
         header("Location: ../index.php?page=jabatan");
-        exit(); // Stop further script execution after redirect
+        exit();
+    }
+
+    // Deleting a member (anggota) and associated user
+    elseif (!empty($_GET['anggota'])) {
+        $id = antiinjection($koneksi, $_GET['id']);
+
+        $query = "DELETE FROM users WHERE id = '$id'";
+        if (mysqli_query($koneksi, $query)) {
+            $query2 = "DELETE FROM members WHERE user_id = '$id'";
+            if (mysqli_query($koneksi, $query2)) {
+                pesan('success', "Anggota Telah Terhapus.");
+            } else {
+                pesan('warning', "Data Login Terhapus Tetapi Data Anggota Tidak Terhapus Karena: " . mysqli_error($koneksi));
+            }
+        } else {
+            pesan('danger', "Anggota Tidak Terhapus Karena: " . mysqli_error($koneksi));
+        }
+
+        header("Location: ../index.php?page=anggota");
+        exit();
     }
 } else {
-    // Optional: Handle cases where the session is not set (user not logged in)
-    header("Location: ../login.php"); // Redirect to the login page or error page
+    // Redirect to login page if the session is not set
+    header("Location: ../login.php");
     exit();
 }
