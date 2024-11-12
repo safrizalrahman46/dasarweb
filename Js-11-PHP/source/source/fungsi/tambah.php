@@ -29,7 +29,7 @@ if (!empty($_SESSION['username'])) {
         $nama = antiInjection($koneksi, $_POST['nama']);
         $jenis_kelamin = antiInjection($koneksi, $_POST['jenis_kelamin']);
         $alamat = antiInjection($koneksi, $_POST['alamat']);
-        $no_telp = antiInjection($koneksi, $_POST['no_tel']);
+        $no_telp = antiInjection($koneksi, $_POST['no_telp']);
 
         // Generate salt and hash password
         $salt = bin2hex(random_bytes(6));
