@@ -1,7 +1,7 @@
 <?php
 include 'koneksi.php';
 $no = 1;
-$query = "SELECT * FROM anggota ORDER BY id DESC";
+$query = "SELECT * FROM anggota ORDER BY id ASC";
 $sql = $db1->prepare($query);
 $sql->execute();
 $res1 = $sql->get_result();
