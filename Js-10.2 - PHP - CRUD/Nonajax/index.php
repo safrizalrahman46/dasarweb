@@ -12,7 +12,7 @@
 
     <?php
     include('koneksi.php');
-    $query = "SELECT * FROM anggota ORDER BY id DESC";
+    $query = "SELECT * FROM anggota ORDER BY id ASC";
     $result = mysqli_query($koneksi, $query);
     ?>
 
