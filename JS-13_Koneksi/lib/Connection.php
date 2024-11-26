@@ -30,3 +30,4 @@ if ($use_driver == 'mysql') {
         die($e->getMessage());
     }
 }
+?>
