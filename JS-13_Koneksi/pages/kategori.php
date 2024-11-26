@@ -30,12 +30,12 @@
                 <thead> 
                     <tr> 
                         <th>No</th> 
-                        <!-- <th>Id</th>  -->
                         <th>Kode Kategori</th> 
                         <th>Nama Kategori</th> 
                         <th>Aksi</th> 
                     </tr> 
-                </thead>                 <tbody> 
+                </thead> 
+                <tbody> 
                 </tbody> 
             </table> 
         </div> 
@@ -44,8 +44,12 @@
 <div class="modal fade" id="form-data" style="display: none;" aria-hidden="true"> 
     <form action="action/kategoriAction.php?act=save" method="post" id="form-tambah"> 
     <!--    Ukuran Modal  
-                modal-sm : Modal ukuran kecil                 modal-md : Modal ukuran sedang                 modal-lg : Modal ukuran besar                 modal-xl : Modal ukuran sangat besar 
-            penerapan setelah class modal-dialog seperti di bawah     --> 
+                modal-sm : Modal ukuran kecil 
+                modal-md : Modal ukuran sedang 
+                modal-lg : Modal ukuran besar 
+                modal-xl : Modal ukuran sangat besar 
+            penerapan setelah class modal-dialog seperti di bawah 
+    --> 
     <div class="modal-dialog modal-md"> 
         <div class="modal-content"> 
             <div class="modal-header"> 
@@ -54,12 +58,18 @@
             <div class="modal-body"> 
                 <div class="form-group"> 
                     <label>Kode Kategori</label> 
-                    <input type="text" class="form-control" name="kategori_kode" id="kategori_kode">                 </div> 
+                    <input type="text" class="form-control" name="kategori_kode" 
+id="kategori_kode"> 
+                </div> 
                 <div class="form-group"> 
                     <label>Nama Kategori</label> 
-                    <input type="text" class="form-control" name="kategori_nama" id="kategori_nama">                 </div> 
+                    <input type="text" class="form-control" name="kategori_nama" 
+id="kategori_nama"> 
+                </div> 
             </div> 
-            <div class="modal-footer justify-content-between">                 <button type="button" class="btn btn-default" datadismiss="modal">Batal</button> 
+            <div class="modal-footer justify-content-between"> 
+                <button type="button" class="btn btn-default" data
+dismiss="modal">Batal</button> 
                 <button type="submit" class="btn btn-primary">Simpan</button> 
             </div> 
         </div> 
@@ -73,25 +83,31 @@
         $('#form-tambah').attr('action', 'action/kategoriAction.php?act=save'); 
         $('#kategori_kode').val(''); 
         $('#kategori_nama').val(''); 
-    }  
+    } 
+ 
     function editData(id){ 
         $.ajax({ 
-            url: 'action/kategoriAction.php?act=get&id='+id,             method: 'post', 
-            success: function(response){                 var data = JSON.parse(response); 
+            url: 'action/kategoriAction.php?act=get&id='+id, 
+            method: 'post', 
+            success: function(response){ 
+                var data = JSON.parse(response); 
                 $('#form-data').modal('show'); 
                 $('#form-tambah').attr('action', 
 'action/kategoriAction.php?act=update&id='+id); 
                 $('#kategori_kode').val(data.kategori_kode); 
-                $('#kategori_nama').val(data.kategori_nama); 
-
+                $('#kategori_nama').val(data.kategori_nama);
             } 
         }); 
-    }  
+    } 
+ 
     function deleteData(id){ 
         if(confirm('Apakah anda yakin?')){ 
             $.ajax({ 
-                url: 'action/kategoriAction.php?act=delete&id='+id,                 method: 'post', 
-                success: function(response){                     var result = JSON.parse(response);                     if(result.status){ 
+                url: 'action/kategoriAction.php?act=delete&id='+id, 
+                method: 'post', 
+                success: function(response){ 
+                    var result = JSON.parse(response); 
+                    if(result.status){ 
                         tabelData.ajax.reload(); 
                     }else{ 
                         alert(result.message); 
@@ -99,19 +115,28 @@
                 } 
             }); 
         } 
-    }  
+    } 
+ 
     var tabelData; 
     $(document).ready(function(){ 
-        tabelData = $('#table-data').DataTable({             ajax: 'action/kategoriAction.php?act=load', 
+        tabelData = $('#table-data').DataTable({ 
+            ajax: 'action/kategoriAction.php?act=load', 
         }); 
  
-        $('#form-tambah').validate({             rules: { 
-                kategori_kode: {                     required: true,                     minlength: 3 
+        $('#form-tambah').validate({ 
+            rules: { 
+                kategori_kode: { 
+                    required: true, 
+                    minlength: 3 
                 }, 
-                kategori_nama: {                     required: true,                     minlength: 5 
-                }             }, 
+                kategori_nama: { 
+                    required: true, 
+                    minlength: 5 
+                } 
+            }, 
             errorElement: 'span', 
-            errorPlacement: function(error, element){                 error.addClass('invalid-feedback'); 
+            errorPlacement: function(error, element){ 
+                error.addClass('invalid-feedback'); 
                 element.closest('.form-group').append(error); 
             }, 
             highlight: function(element, errorClass, validClass){ 
@@ -124,7 +149,10 @@
                 $.ajax({ 
                     url: $(form).attr('action'), 
                     method: 'post', 
-                    data: $(form).serialize(),                     success: function(response){                         var result = JSON.parse(response);                         if(result.status){ 
+                    data: $(form).serialize(), 
+                    success: function(response){ 
+                        var result = JSON.parse(response); 
+                        if(result.status){ 
                             $('#form-data').modal('hide'); 
                             tabelData.ajax.reload(); // reload data tabel 
                         }else{ 
@@ -133,6 +161,6 @@
                     } 
                 }); 
             } 
-        }); 
+        });
     }); 
-</script> 
+</script>
