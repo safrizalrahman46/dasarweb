@@ -178,7 +178,7 @@
         $(document).ready(function() {
             table = $('#table-data').DataTable({
                 ajax: {
-                    url: 'bukuAction.php?act=load',
+                    url: '../source/action/bukuAction.php?act=load',
                     dataSrc: 'data' // Pastikan ini sesuai dengan struktur JSON yang dikembalikan
                 },
                 columns: [{
@@ -212,7 +212,7 @@
             $('#form-tambah').submit(function(e) {
                 e.preventDefault();
                 $.ajax({
-                    url: 'source/action/bukuAction.php?act=load',
+                    url: '../source/action/bukuAction.php?act=load',
                     method: 'GET',
                     success: function(data) {
                         console.log(data); // Lihat data yang diterima
@@ -248,6 +248,8 @@
                 });
             });
         });
+
+        
     </script>
 </body>
 
