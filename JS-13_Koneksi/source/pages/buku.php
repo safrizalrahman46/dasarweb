@@ -145,6 +145,41 @@
         }
     }
 
+    function editBuku(id) {
+    $.ajax({
+        url: 'action/bukuAction.php?act=get&id=' + id,
+        method: 'post',
+        success: function(response) {
+            var data = JSON.parse(response);
+            $('#form-buku').modal('show');
+            $('#form-tambah-buku').attr('action', 'action/bukuAction.php?act=update&id=' + id);
+            $('#kategori_id').val(data.kategori_id);
+            $('#buku_kode').val(data.buku_kode);
+            $('#buku_nama').val(data.buku_nama);
+            $('#jumlah').val(data.jumlah);
+            $('#deskripsi').val(data.deskripsi);
+            $('#gambar').val(''); // Reset file input for security
+        }
+    });
+}
+
+function deleteBuku(id) {
+    if (confirm('Apakah anda yakin?')) {
+        $.ajax({
+            url: 'action/bukuAction.php?act=delete&id=' + id,
+            method: 'post',
+            success: function(response) {
+                var result = JSON.parse(response);
+                if (result.status) {
+                    tabelBuku.ajax.reload();
+                } else {
+                    alert(result.message);
+                }
+            }
+        });
+    }
+}
+
     var tabelBuku;
     $(document).ready(function() {
         tabelBuku = $('#table-buku').DataTable({
