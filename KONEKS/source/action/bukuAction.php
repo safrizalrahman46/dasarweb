@@ -20,7 +20,6 @@ if ($act == 'load') {
     foreach ($data as $row) {
         $result['data'][] = [
             $i,
-            $row['kategori_id'],
             $row['buku_kode'],
             $row['buku_nama'],
             $row['jumlah'],
@@ -46,7 +45,11 @@ if ($act == 'save') {
     // Handle file upload if exists
     $gambar = '';
     if (isset($_FILES['gambar']) && $_FILES['gambar']['error'] == 0) {
-        $target_dir = "../uploads/";
+        $target_dir = realpath(__DIR__ . '../source/img/uploads') . DIRECTORY_SEPARATOR; // Absolute path to the uploads folder
+        if (!is_dir($target_dir)) {
+            mkdir($target_dir, 0777, true); // Create the folder if it doesn't exist
+        }
+
         $file_extension = strtolower(pathinfo($_FILES["gambar"]["name"], PATHINFO_EXTENSION));
         $new_filename = uniqid() . '.' . $file_extension;
         $target_file = $target_dir . $new_filename;
@@ -83,7 +86,11 @@ if ($act == 'update') {
     // Handle file upload if exists
     $gambar = antiSqlInjection($_POST['gambar_lama']);
     if (isset($_FILES['gambar']) && $_FILES['gambar']['error'] == 0) {
-        $target_dir = "../uploads/";
+        $target_dir = realpath(__DIR__ . '/../../uploads') . DIRECTORY_SEPARATOR; // Absolute path to the uploads folder
+        if (!is_dir($target_dir)) {
+            mkdir($target_dir, 0777, true); // Create the folder if it doesn't exist
+        }
+
         $file_extension = strtolower(pathinfo($_FILES["gambar"]["name"], PATHINFO_EXTENSION));
         $new_filename = uniqid() . '.' . $file_extension;
         $target_file = $target_dir . $new_filename;

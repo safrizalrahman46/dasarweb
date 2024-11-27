@@ -20,16 +20,21 @@ if ($act == 'load') {
     foreach ($data as $row) {
         $result['data'][] = [
             $i,
-            $row['buku_kode'],
-            $row['buku_nama'],
-            $row['jumlah'],
-            $row['deskripsi'],
-            '<img src="' . $row['gambar'] . '" alt="' . $row['buku_nama'] . '" class="img-thumbnail" width="50">',
-            '<button class="btn btn-sm btn-warning" onclick="editData(' . $row['buku_id'] . ')">...</button>',
-            '<button class="btn btn-sm btn-danger" onclick="deleteData(' . $row['buku_id'] . ')">...</button>'
+            $row['buku_kode'], // Change to buku_kode
+            $row['buku_nama'], // Change to buku_nama
+            $row['kategori_id'], // You might want to display the kategori_name instead
+            $row['jumlah'], // Add the jumlah field if required
+            $row['deskripsi'], // Add the deskripsi field if required
+       
+        
+        '<img width="200px" src="'.$row['gambar'].'">',
+            '<button class="btn btn-sm btn-warning" 
+onclick="editData(' . $row['buku_id'] . ')"><i class="fa fa-edit"></i></button>  
+             <button class="btn btn-sm btn-danger" 
+onclick="deleteData(' . $row['buku_id'] . ')"><i class="fa fa-trash"></i></button>'
         ];
         $i++;
-    }
+    }   
     echo json_encode($result);
 }
 
@@ -42,31 +47,14 @@ if ($act == 'get') {
 }
 
 if ($act == 'save') {
-    // Handle file upload if exists
-    $gambar = '';
-    if (isset($_FILES['gambar']) && $_FILES['gambar']['error'] == 0) {
-        $target_dir = "../uploads/";
-        $file_extension = strtolower(pathinfo($_FILES["gambar"]["name"], PATHINFO_EXTENSION));
-        $new_filename = uniqid() . '.' . $file_extension;
-        $target_file = $target_dir . $new_filename;
-
-        if (move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file)) {
-            $gambar = $target_file;
-        } else {
-            echo json_encode(['status' => false, 'message' => 'Gagal mengunggah gambar.']);
-            return; // Menghentikan eksekusi lebih lanjut
-        }
-    }
-
     $data = [
-        'kategori_id' => antiSqlInjection($_POST['kategori_id']),
-        'buku_kode' => antiSqlInjection($_POST['buku_kode']),
-        'buku_nama' => antiSqlInjection($_POST['buku_nama']),
-        'jumlah' => antiSqlInjection($_POST['jumlah']),
-        'deskripsi' => antiSqlInjection($_POST['deskripsi']),
-        'gambar' => $gambar
+        'kategori_id' => antiSqlInjection($_POST['kategori_id']), // kategori_id
+        'buku_kode' => antiSqlInjection($_POST['buku_kode']), // buku_kode
+        'buku_nama' => antiSqlInjection($_POST['buku_nama']), // buku_nama
+        'jumlah' => antiSqlInjection($_POST['jumlah']), // jumlah
+        'deskripsi' => antiSqlInjection($_POST['deskripsi']), // deskripsi
+        'gambar' => antiSqlInjection($_POST['gambar']) // gambar (if you are handling image URL or file path)
     ];
-
     $buku = new BukuModel();
     $buku->insertData($data);
 
@@ -78,31 +66,13 @@ if ($act == 'save') {
 
 if ($act == 'update') {
     $id = (isset($_GET['id']) && ctype_digit($_GET['id'])) ? $_GET['id'] : 0;
-
-    // Handle file upload if exists
-    $gambar = antiSqlInjection($_POST['gambar_lama']);
-    if (isset($_FILES['gambar']) && $_FILES['gambar']['error'] == 0) {
-        $target_dir = "../uploads/";
-        $file_extension = strtolower(pathinfo($_FILES["gambar"]["name"], PATHINFO_EXTENSION));
-        $new_filename = uniqid() . '.' . $file_extension;
-        $target_file = $target_dir . $new_filename;
-
-        if (move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file)) {
-            // Delete old file if exists
-            if (file_exists($_POST['gambar_lama'])) {
-                unlink($_POST['gambar_lama']);
-            }
-            $gambar = $target_file;
-        }
-    }
-
     $data = [
-        'kategori_id' => antiSqlInjection($_POST['kategori_id']),
-        'buku_kode' => antiSqlInjection($_POST['buku_kode']),
-        'buku_nama' => antiSqlInjection($_POST['buku_nama']),
-        'jumlah' => antiSqlInjection($_POST['jumlah']),
-        'deskripsi' => antiSqlInjection($_POST['deskripsi']),
-        'gambar' => $gambar
+        'kategori_id' => antiSqlInjection($_POST['kategori_id']), // kategori_id
+        'buku_kode' => antiSqlInjection($_POST['buku_kode']), // buku_kode
+        'buku_nama' => antiSqlInjection($_POST['buku_nama']), // buku_nama
+        'jumlah' => antiSqlInjection($_POST['jumlah']), // jumlah
+        'deskripsi' => antiSqlInjection($_POST['deskripsi']), // deskripsi
+        'gambar' => antiSqlInjection($_POST['gambar']) // gambar (if you are handling image URL or file path)
     ];
 
     $buku = new BukuModel();
@@ -117,18 +87,7 @@ if ($act == 'update') {
 if ($act == 'delete') {
     $id = (isset($_GET['id']) && ctype_digit($_GET['id'])) ? $_GET['id'] : 0;
 
-    // Get existing data to delete image file
     $buku = new BukuModel();
-    $existing_data = $buku->getDataById($id);
-
-    // Delete image file if exists
-    if ($existing_data && !empty($existing_data['gambar'])) {
-        if (file_exists($existing_data['gambar'])) {
-            unlink($existing_data['gambar']);
-        }
-    }
-
-    // Delete database record
     $buku->deleteData($id);
 
     echo json_encode([

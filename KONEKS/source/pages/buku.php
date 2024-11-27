@@ -51,7 +51,6 @@
                                 <th>Deskripsi</th>
                                 <th>Gambar</th>
                                 <th>Aksi</th>
-                                
                             </tr>
                         </thead>
                         <tbody>
@@ -133,12 +132,18 @@
             $('#form-tambah')[0].reset();
             $('#preview').hide();
             $('.modal-title').text('Tambah Buku');
-            $('#form-tambah').attr('action', 'action/bukuAction.php?act=save');
+            $('#form-tambah').attr('action', '../source/action/bukuAction.php?act=save');
+            $('#kategori_id').val('');
+            $('#buku_nama').val('');
+            $('#buku_kode').val('');
+            $('#jumlah').val('');
+            $('#deskripsi').val('');
+            $('#gambar').val('');
         }
 
         function editData(id) {
             $('.modal-title').text('Edit Buku');
-            $.get('action/bukuAction.php?act=get&id=' + id, function(data) {
+            $.get('../source/action/bukuAction.php?act=get&id=' + id, function(data) {
                 $('#buku_kode').val(data.buku_kode);
                 $('#buku_nama').val(data.buku_nama);
                 $('#kategori_id').val(data.kategori_id);
@@ -150,15 +155,15 @@
                 }
                 $('#buku_id').val(data.buku_id);
                 $('#form-data').modal('show');
-                $('#form-tambah').attr('action', 'action/bukuAction.php?act=update&id=' + id);
+                $('#form-tambah').attr('action', '../source/action/bukuAction.php?act=update&id=' + id);
             });
         }
 
         function deleteData(id) {
             if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
-                $.get('action/bukuAction.php?act=delete&id=' + id, function(data) {
+                $.get('../source/action/bukuAction.php?act=delete&id=' + id, function(data) {
                     alert(data.message);
-                    table.ajax.reload();
+                    table.ajax.reload(); // Reload DataTable setelah data dihapus
                 });
             }
         }
@@ -175,77 +180,29 @@
             }
         });
 
+        // Inisialisasi DataTable
         $(document).ready(function() {
+            if ($.fn.dataTable.isDataTable('#table-data')) {
+                $('#table-data').DataTable().clear().destroy(); // Destroy existing DataTable
+            }
+
             table = $('#table-data').DataTable({
                 ajax: {
-                    url: 'bukuAction.php?act=load',
-                    dataSrc: 'data' // Pastikan ini sesuai dengan struktur JSON yang dikembalikan
+                    url: '../source/action/bukuAction.php?act=load',
+                    dataSrc: 'data' // Pastikan ini sesuai dengan struktur JSON yang diterima
                 },
-                columns: [{
-                        title: "No"
-                    },
-                    {
-                        title: "Kode Buku"
-                    },
-                    {
-                        title: "Nama Buku"
-                    },
-                    {
-                        title: "Jumlah"
-                    },
-                    {
-                        title: "Deskripsi"
-                    },
-                    {
-                        title: "Gambar"
-                    },
-                    {
-                        title: "Edit"
-                    },
-                    {
-                        title: "Delete"
-                    }
+                columns: [
+                    { title: "No" },
+                    { title: "Kode Buku" },
+                    { title: "Nama Buku" },
+                    { title: "Kategori" },
+                    { title: "Jumlah" },
+                    { title: "Deskripsi" },
+                    { title: "Gambar" },
+                    { title: "Aksi", orderable: false, searchable: false, render: function(data, type, row, meta) {
+                        return '<button class="btn btn-warning btn-sm" onclick="editData(' + row.buku_id + ')">Edit</button> <button class="btn btn-danger btn-sm" onclick="deleteData(' + row.buku_id + ')">Delete</button>';
+                    }}
                 ]
-            });
-
-            // Form submit handler
-            $('#form-tambah').submit(function(e) {
-                e.preventDefault();
-                $.ajax({
-                    url: 'action/bukuAction.php?act=load',
-                    method: 'GET',
-                    success: function(data) {
-                        console.log(data); // Lihat data yang diterima
-                        $('#table-data').DataTable({
-                            data: data.data,
-                            columns: [{
-                                    title: "No"
-                                },
-                                {
-                                    title: "Kode Buku"
-                                },
-                                {
-                                    title: "Nama Buku"
-                                },
-                                {
-                                    title: "Jumlah"
-                                },
-                                {
-                                    title: "Deskripsi"
-                                },
-                                {
-                                    title: "Gambar"
-                                },
-                                {
-                                    title: "Edit"
-                                },
-                                {
-                                    title: "Delete"
-                                }
-                            ]
-                        });
-                    }
-                });
             });
         });
     </script>
