@@ -59,14 +59,15 @@
                     <div class="form-group">
                         <label>Kategori</label>
                         <select class="form-control" name="kategori_id" id="kategori_id" required>
-                                    <option value="" disabled selected>Pilih Kategori Buku</option>
-                                    <option value="FKS">Fiksi</option>
-                                    <option value="NVL">Novel</option>
-                                    <option value="ILM">Ilmiah</option>
-                                    <option value="MTR">Misteri</option>
-                                    <option value="SSL">Sosial</option>
-                                    <option value="LKK">LKK</option>
-                                </select>
+                        <option value="" disabled selected>Pilih Kategori Buku</option>
+                                    <option value="1">Fiksi</option>
+                                    <option value="2">Novel</option>
+                                    <option value="3">Ilmiah</option>
+                                    <option value="4">Misteri</option>
+                                    <option value="5">Sosial</option>
+                                    <option value="6">LKK</option>
+                                
+                    </select>
                     </div>
                     <div class="form-group">
                         <label>Kode Buku</label>
@@ -110,23 +111,23 @@
         $('#gambar').val('');
     }
 
-    // function editBuku(id) {
-    //     $.ajax({
-    //         url: 'action/bukuAction.php?act=get&id=' + id,
-    //         method: 'post',
-    //         success: function(response) {
-    //             var data = JSON.parse(response);
-    //             $('#form-buku').modal('show');
-    //             $('#form-tambah-buku').attr('action', 'action/bukuAction.php?act=update&id=' + id);
-    //             $('#kategori_id').val(data.kategori_id);
-    //             $('#buku_kode').val(data.buku_kode);
-    //             $('#buku_nama').val(data.buku_nama);
-    //             $('#jumlah').val(data.jumlah);
-    //             $('#deskripsi').val(data.deskripsi);
-    //             $('#gambar').val(''); // Reset file input for security
-    //         }
-    //     });
-    // }
+    function editBuku(id) {
+        $.ajax({
+            url: 'action/bukuAction.php?act=get&id=' + id,
+            method: 'post',
+            success: function(response) {
+                var data = JSON.parse(response);
+                $('#form-buku').modal('show');
+                $('#form-tambah-buku').attr('action', 'action/bukuAction.php?act=update&id=' + id);
+                $('#kategori_id').val(data.kategori_id);
+                $('#buku_kode').val(data.buku_kode);
+                $('#buku_nama').val(data.buku_nama);
+                $('#jumlah').val(data.jumlah);
+                $('#deskripsi').val(data.deskripsi);
+                $('#gambar').val(''); // Reset file input for security
+            }
+        });
+    }
 
     function deleteBuku(id) {
         if (confirm('Apakah anda yakin?')) {
