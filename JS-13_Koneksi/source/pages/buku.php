@@ -51,7 +51,6 @@
                                 <th>Deskripsi</th>
                                 <th>Gambar</th>
                                 <th>Aksi</th>
-                                
                             </tr>
                         </thead>
                         <tbody>
@@ -133,12 +132,12 @@
             $('#form-tambah')[0].reset();
             $('#preview').hide();
             $('.modal-title').text('Tambah Buku');
-            $('#form-tambah').attr('action', 'action/bukuAction.php?act=save');
+            $('#form-tambah').attr('action', '../source/action/bukuAction.php?act=save');
         }
 
         function editData(id) {
             $('.modal-title').text('Edit Buku');
-            $.get('action/bukuAction.php?act=get&id=' + id, function(data) {
+            $.get('../source/action/bukuAction.php?act=get&id=' + id, function(data) {
                 $('#buku_kode').val(data.buku_kode);
                 $('#buku_nama').val(data.buku_nama);
                 $('#kategori_id').val(data.kategori_id);
@@ -248,8 +247,6 @@
                 });
             });
         });
-
-        
     </script>
 </body>
 

@@ -20,7 +20,6 @@ if ($act == 'load') {
     foreach ($data as $row) {
         $result['data'][] = [
             $i,
-            $row['kategori_id'],
             $row['buku_kode'],
             $row['buku_nama'],
             $row['jumlah'],
