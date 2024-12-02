@@ -31,7 +31,7 @@ if ($act == 'load') {
             $row['kategori_id'],
             $row['jumlah'],
             $row['deskripsi'],
-            $row['gambar'],
+            '<img width="200px" src="'.$row['gambar'].'">',
             '<button class="btn btn-sm btn-warning" onclick="editData(' . $row['buku_id'] . ')"><i class="fa fa-edit"></i></button>
             <button class="btn btn-sm btn-danger" onclick="deleteData(' . $row['buku_id'] . ')"><i class="fa fa-trash"></i></button>'
         ];
